@@ -9,9 +9,14 @@ project(${NAME}
 
 set(ROOT_DIR_STEP "../..")
 set(ROOT_DIR      "${CMAKE_SOURCE_DIR}/${ROOT_DIR_STEP}")
+set(SRC_DIR       ${ROOT_DIR}/src)
+set(EXT_DIR       ${ROOT_DIR}/_external)
+set(LIB_DIR       ${ROOT_DIR}/_libs)
+set(BUILD_DIR     ${ROOT_DIR}/_build)
+set(BIN_DIR       ${ROOT_DIR}/_bin)
 
 # puts .exe in _bin, but also dll's
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${ROOT_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR})
 # # set the output dir for libraries 
 # set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${ROOT_DIR}/_libs/win64)   # static lib's
 # set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${ROOT_DIR}/_libs/win64)   # dll's, should prob. be _bin
@@ -46,21 +51,21 @@ set(CUSTOM_COMPILE_OPTIONS
   # -no-pie
   )
 
-target_include_directories(${NAME} PRIVATE ${ROOT_DIR}/src)
-target_include_directories(${NAME} PRIVATE ${ROOT_DIR}/external)
-target_include_directories(${NAME} PRIVATE ${ROOT_DIR}/external/bgfx.cmake/bgfx/include)
-target_include_directories(${NAME} PRIVATE ${ROOT_DIR}/external/bgfx.cmake/bimg/include)
-target_include_directories(${NAME} PRIVATE ${ROOT_DIR}/external/bgfx.cmake/bx/include)
+target_include_directories(${NAME} PRIVATE ${SRC_DIR})
+target_include_directories(${NAME} PRIVATE ${EXT_DIR})
+target_include_directories(${NAME} PRIVATE ${EXT_DIR}/bgfx.cmake/bgfx/include)
+target_include_directories(${NAME} PRIVATE ${EXT_DIR}/bgfx.cmake/bimg/include)
+target_include_directories(${NAME} PRIVATE ${EXT_DIR}/bgfx.cmake/bx/include)
 # target_compile_features(   ${NAME} PRIVATE cxx_std_11)
 target_compile_options(    ${NAME} PRIVATE ${CUSTOM_COMPILE_OPTIONS}) 
 target_link_options(       ${NAME} PRIVATE ${CUSTOM_LINK_OPTIONS})
 
 if(${CMAKE_GENERATOR} STREQUAL "MinGW Makefiles")
-  target_link_libraries(${NAME} ${ROOT_DIR}/libs/win64/libglfw3.a)
+  target_link_libraries(${NAME} ${LIB_DIR}/win64/libglfw3.a)
   # target_link_libraries(${EDITOR_NAME} ${EDITOR_ROOT_DIR}/_libs/win64/freetype.a)
   # message("!!! -> used .a")
 else() # if(${CMAKE_GENERATOR} STREQUAL "Visual Studio 2016 19")
-  target_link_libraries(${NAME} ${ROOT_DIR}/libs/win64/glfw3.lib)
+  target_link_libraries(${NAME} ${LIB_DIR}/win64/glfw3.lib)
   # target_link_libraries(${EDITOR_NAME} ${EDITOR_ROOT_DIR}/_libs/win64/freetype.lib)
   # message("!!! -> used .lib")
 endif()
@@ -96,12 +101,12 @@ endif()
 # endif()
 
 if(${CMAKE_GENERATOR} STREQUAL "MinGW Makefiles")
-  add_subdirectory(${ROOT_DIR}/external/bgfx.cmake ${ROOT_DIR}/build/bgfx/mingw64)
+  add_subdirectory(${EXT_DIR}/bgfx.cmake ${BUILD_DIR}/bgfx/mingw64)
 else() # if(${CMAKE_GENERATOR} STREQUAL "Visual Studio 2016 19")
-  add_subdirectory(${ROOT_DIR}/external/bgfx.cmake ${ROOT_DIR}/build/bgfx/vs)
+  add_subdirectory(${EXT_DIR}/bgfx.cmake ${BUILD_DIR}/bgfx/vs)
 endif()
 target_link_libraries(${NAME} bgfx)
 target_link_libraries(${NAME} bimg)
 target_link_libraries(${NAME} bx)
-target_link_libraries(${NAME} example-common)
+# target_link_libraries(${NAME} example-common)
 

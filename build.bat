@@ -1,8 +1,8 @@
 @echo off
 
-del bin\bgfx_test.exe
-cd build\make
+del _bin\bgfx_test.exe
+cd _build\make
 make
-cd ..\..\bin
+cd ..\..\_bin
 bgfx_test
 cd ..

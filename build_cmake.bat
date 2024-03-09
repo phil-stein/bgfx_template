@@ -1,7 +1,7 @@
 @echo off
 
 :: --- build  ---
-cd build/make
+cd _build/make
 cmake -G "MinGW Makefiles" . -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 :: copy compile_commands.json to root for clangd lsp
 copy /y compile_commands.json ..\..\compile_commands.json
