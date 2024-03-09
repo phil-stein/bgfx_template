@@ -9,10 +9,7 @@ my own stuff: [math-library](https://github.com/phil-stein/math), [global-define
 ## setup
 ```
   git clone --recurse-submodules https://github.com/phil-stein/bgfx_template <optional name/path here>
-  cd <name/path>/_external/bgfx.cmake
-  git submodule init
-  git submodule update
-  cd ../..
+  cd <name/path>
   build_cmake
   build
 ```
