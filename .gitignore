@@ -1,0 +1,51 @@
+# executables
+*.exe
+
+# c object files
+*.o
+
+# vim-files
+*~
+*.swp
+*.swo
+
+# rar-files
+*.rar
+*.zip
+
+# vs files
+/.vs
+/vs2019
+
+# custom files
+*.tex
+*.mesh
+*.pack
+
+# trace.log
+trace.log
+_bin/trace.log
+
+# libs folder
+libs/win64/Debug/*
+libs/win64/Release/*
+libs/win64/libfisch.a
+libs/win64/libfisch_*.a
+
+# bin folder
+_bin/*
+!_bin/.gitkeep
+
+# build folder
+_build/*
+!_build/*/*.bat   
+!_build/*.bat     
+!_build/*/CMakeLists.txt
+!_build/*/*/CMakeLists.txt
+!_build/*/*.cmake
+!_build/*/*/*.cmake
+
+# .cache folder 
+.cache/*
+
+compile_commands.json
